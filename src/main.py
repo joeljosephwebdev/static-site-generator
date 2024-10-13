@@ -1,29 +1,12 @@
-from textnode import TextNode
+from textnode import TextNode, text_node_to_html_node
 from htmlnode import HTMLNode
 from leafnode import LeafNode
 from parentnode import ParentNode
 
 def main():
- node = ParentNode(
-    "p",
-    [
-        LeafNode(None, "Normal text"),
-        ParentNode(
-            "p",
-          [
-            LeafNode("b", "Bold text"),
-            LeafNode(None, "Normal text"),
-            LeafNode("i", "italic text"),
-            LeafNode(None, "Normal text"),
-          ],
-        ),
-        LeafNode("i", "italic text"),
-        LeafNode(None, "Normal text"),
-    ],
-  )
+  text_node = TextNode("This is a link node", "link", "https://www.besstimett.com")
  
- print(node.to_html())
-
+  print(text_node_to_html_node(text_node))
 
 if __name__ == '__main__':
   main()

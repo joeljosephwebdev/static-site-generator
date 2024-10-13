@@ -114,33 +114,33 @@ class TestParentNode(unittest.TestCase):
             LeafNode(None, "Normal text"),
         ],
       )
-      self.assertEqual(
+      node3 = ParentNode(
+        "body",
+        [
+            LeafNode("b", "Bold text"),
+        ],
+      )
+      self.assertEqual( # test node with many children
          "<p><b>Bold text</b>Normal text<i>italic text</i>Normal text</p>", node.to_html()
       )
-      self.assertEqual(
+      self.assertEqual(# test node with parentnode as child
          "<p>Normal text<p><b>Bold text</b>Normal text<i>italic text</i>Normal text</p><i>italic text</i>Normal text</p>", node2.to_html()
       )
+      self.assertEqual(# test node with only one child
+         "<body><b>Bold text</b></body>", node3.to_html()
+      )
 
-    # def test_to_html(self):
-    #    node = ParentNode("p", "This is a paragraph of text.")
-    #    node2 = ParentNode("a", "Click me!", {"href": "https://www.google.com"})
-    #    node3 = ParentNode(None, "Click me!", {"href": "https://www.google.com"})
-    #    self.assertEqual( # standard test
-    #       "<p>This is a paragraph of text.</p>", node.to_html()
-    #    )
-    #    self.assertEqual( # test with props
-    #       '<a href="https://www.google.com">Click me!</a>', node2.to_html()
-    #    )
-    #    self.assertEqual( # test where tag is None
-    #       "Click me!", node3.to_html() 
-    #    )
-      
-    #    with self.assertRaises(ValueError) as context: #test where value is None
-    #       node4 = ParentNode("p", None, {"font-family" : "Roboto"})
-    #    self.assertEqual(str(context.exception), "parent node must have a value")
-    
-    # def test_props_to_html(self):
-    #   node = ParentNode("a", "Click me!", {"href": "https://www.google.com", "color" : "blue"})
-    #   self.assertEqual(
-    #      ' href="https://www.google.com" color="blue"', node.props_to_html()
-    #   )
+    def test_headings(self):
+      node = ParentNode(
+          "h2",
+          [
+              LeafNode("b", "Bold text"),
+              LeafNode(None, "Normal text"),
+              LeafNode("i", "italic text"),
+              LeafNode(None, "Normal text"),
+          ],
+      )
+      self.assertEqual(
+          node.to_html(),
+          "<h2><b>Bold text</b>Normal text<i>italic text</i>Normal text</h2>",
+      )

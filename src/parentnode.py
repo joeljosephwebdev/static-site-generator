@@ -12,7 +12,7 @@ class ParentNode(HTMLNode):
   
   @tag.setter #validation for tag
   def tag(self, value: list):
-    if not value:
+    if value is None:
         raise ValueError("parent node must have a tag")
     self._tag = value
 
@@ -22,7 +22,7 @@ class ParentNode(HTMLNode):
   
   @children.setter #validation for children
   def children(self, value: list):
-    if not value:
+    if value is None:
         raise ValueError("parent node must have at least one child node")
     self._children = value
 

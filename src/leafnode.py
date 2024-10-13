@@ -11,12 +11,12 @@ class LeafNode(HTMLNode):
   
   @value.setter #validation for value
   def value(self, contents: str):
-    if not contents:
+    if contents is None:
         raise ValueError("leaf node must have a value")
     self._value = contents.lower()
   
   def to_html(self):
-    if not self.tag:
+    if self.tag is None:
       return self.value
     
     props = self.props_to_html()

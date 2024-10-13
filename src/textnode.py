@@ -1,4 +1,5 @@
 from enum import Enum
+from leafnode import LeafNode
 
 class TextType(Enum):
     TEXT = "text"
@@ -34,3 +35,20 @@ class TextNode:
   # Overload print method. This method returns a string representation of a TextNode formatted "TextNode(properties)"
   def __repr__(self):
     return f"TextNode({self.text}, {self.text_type}, {self.url})"
+
+def text_node_to_html_node(text_node):
+  match text_node.text_type:
+    case "text":
+      return LeafNode(None, text_node.text, None)
+    case "bold":
+      return LeafNode("b", text_node.text, None)
+    case "italic":
+      return LeafNode("i", text_node.text, None)
+    case "code":
+      return LeafNode("code", text_node.text, None)
+    case "link":
+      return LeafNode("link", text_node.text, {"href" : text_node.url})
+    case "image":
+      return LeafNode("img", "", {"src" : text_node.url, "alt" : text_node.text})
+    case _:
+      raise ValueError(f"Invalid text type {text_node.text_type}")
