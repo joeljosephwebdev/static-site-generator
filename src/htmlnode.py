@@ -17,7 +17,7 @@ class HTMLNode:
     if not self.props: return ""
     
     formatted_props = [f'{key}="{value}"' for key, value in self.props.items()]
-    return " ".join(formatted_props)
+    return " " + " ".join(formatted_props)
 
 
   def __repr__(self):
