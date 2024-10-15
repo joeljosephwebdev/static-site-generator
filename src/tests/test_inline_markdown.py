@@ -13,9 +13,11 @@ sys.path.append(parent_dir)
 
 from inline_markdown import (
     split_nodes_delimiter,
+    extract_markdown_links,
+    extract_markdown_images,
 )
 
-from textnode import TextNode, TextType
+from textnode import TextNode
 
 
 class TestInlineMarkdown(unittest.TestCase):
@@ -105,6 +107,42 @@ class TestInlineMarkdown(unittest.TestCase):
             new_nodes = split_nodes_delimiter([node], "*")
         self.assertEqual(str(context.exception), "Invalid markdown, formatted section not closed")
 
+
+    def test_extract_markdown_images(self):
+        matches = extract_markdown_images(
+            "This is text with an ![image](https://i.imgur.com/zjjcJKZ.png)"
+        )
+        self.assertListEqual([("image", "https://i.imgur.com/zjjcJKZ.png")], matches)
+
+    def test_extract_markdown_links(self):
+        matches = extract_markdown_links(
+            "This is text with a [link](https://besstimett.com) and [another link](https://blog.besstimett.com)"
+        )
+        self.assertListEqual(
+            [
+                ("link", "https://besstimett.com"),
+                ("another link", "https://blog.besstimett.com"),
+            ],
+            matches,
+        )
+
+    def test_extract_markdown_images_with_links(self):
+        matches = extract_markdown_images(
+            "This is text with an ![image](https://i.imgur.com/zjjcJKZ.png) and a [link](https://besstimett.com)"
+        )
+        self.assertListEqual([("image", "https://i.imgur.com/zjjcJKZ.png")], matches)
+
+    def test_extract_markdown_links_with_images(self):
+        matches = extract_markdown_links(
+            "This is text with a [link](https://besstimett.com) and [another link](https://blog.besstimett.com) and ![image](https://i.imgur.com/zjjcJKZ.png)"
+        )
+        self.assertListEqual(
+            [
+                ("link", "https://besstimett.com"),
+                ("another link", "https://blog.besstimett.com"),
+            ],
+            matches,
+        )
 
 if __name__ == "__main__":
     unittest.main()
