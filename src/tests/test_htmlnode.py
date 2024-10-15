@@ -44,7 +44,7 @@ class TestHTMLNode(unittest.TestCase):
      node = HTMLNode("a", "Link", None, {"href": "https://www.besstimett.com", "target": "_blank",})
      with self.assertRaises(NotImplementedError) as context:
         node.to_html()
-     self.assertIn(str(context.exception), "to_html method not implemented")
+     self.assertEqual(str(context.exception), "to_html method not implemented")
   
   def test_props_to_html(self):
      node = HTMLNode("a", "Link", None, {"href": "https://www.besstimett.com", "target": "_blank",})
