@@ -13,6 +13,8 @@ sys.path.append(parent_dir)
 
 from inline_markdown import (
     split_nodes_delimiter,
+    split_nodes_link,
+    split_nodes_image,
     extract_markdown_links,
     extract_markdown_images,
 )
@@ -142,6 +144,96 @@ class TestInlineMarkdown(unittest.TestCase):
                 ("another link", "https://blog.besstimett.com"),
             ],
             matches,
+        )
+
+
+    def test_split_image(self):
+            node = TextNode(
+                "This is text with an ![alt_text](https://i.imgur.com/zjjcJKZ.png)",
+                "text",
+            )
+            new_nodes = split_nodes_image([node])
+            self.assertListEqual(
+                [
+                    TextNode("This is text with an ", "text"),
+                    TextNode("alt_text", "image", "https://i.imgur.com/zjjcJKZ.png"),
+                ],
+                new_nodes,
+            )
+
+    def test_split_image_single(self):
+        node = TextNode(
+            "![alt_text](https://www.example.COM/IMAGE.PNG)",
+            "text",
+        )
+        new_nodes = split_nodes_image([node])
+        self.assertListEqual(
+            [
+                TextNode("alt_text", "image", "https://www.example.COM/IMAGE.PNG"),
+            ],
+            new_nodes,
+        )
+
+    def test_split_images(self):
+        node = TextNode(
+            "This is text with an ![image](https://i.imgur.com/zjjcJKZ.png) and another ![second image](https://i.imgur.com/3elNhQu.png)",
+            "text",
+        )
+        new_nodes = split_nodes_image([node])
+        self.assertListEqual(
+            [
+                TextNode("This is text with an ", "text"),
+                TextNode("image", "image", "https://i.imgur.com/zjjcJKZ.png"),
+                TextNode(" and another ", "text"),
+                TextNode(
+                    "second image", "image", "https://i.imgur.com/3elNhQu.png"
+                ),
+            ],
+            new_nodes,
+        )
+
+    def test_split_link(self):
+            node = TextNode(
+                "This is text with an [besstime](https://besstimett.com)",
+                "text",
+            )
+            new_nodes = split_nodes_link([node])
+            self.assertListEqual(
+                [
+                    TextNode("This is text with an ", "text"),
+                    TextNode("besstime", "link", "https://besstimett.com"),
+                ],
+                new_nodes,
+            )
+
+    def test_split_link_single(self):
+        node = TextNode(
+            "[besstime](besstimett.com)",
+            "text",
+        )
+        new_nodes = split_nodes_link([node])
+        self.assertListEqual(
+            [
+                TextNode("besstime", "link", "besstimett.com"),
+            ],
+            new_nodes,
+        )
+
+    def test_split_links(self):
+        node = TextNode(
+            "This is text with a [besstime](https://besstimett.com) and [besstime blog](https://blog.besstimett.com) with text that follows",
+            "text",
+        )
+        new_nodes = split_nodes_link([node])
+        self.assertListEqual(
+            [
+                TextNode("This is text with a ", "text"),
+                TextNode("besstime", "link", "https://besstimett.com"),
+                TextNode(" and ", "text"),
+                TextNode("besstime blog", "link", "https://blog.besstimett.com"),
+                TextNode(" with text that follows", "text"),
+            ],
+            new_nodes,
         )
 
 if __name__ == "__main__":
