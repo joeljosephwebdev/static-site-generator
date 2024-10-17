@@ -17,6 +17,7 @@ from inline_markdown import (
     split_nodes_image,
     extract_markdown_links,
     extract_markdown_images,
+    text_to_textnodes
 )
 
 from textnode import TextNode
@@ -208,13 +209,13 @@ class TestInlineMarkdown(unittest.TestCase):
 
     def test_split_link_single(self):
         node = TextNode(
-            "[besstime](besstimett.com)",
+            "[besstime](https://besstimett.com)",
             "text",
         )
         new_nodes = split_nodes_link([node])
         self.assertListEqual(
             [
-                TextNode("besstime", "link", "besstimett.com"),
+                TextNode("besstime", "link", "https://besstimett.com"),
             ],
             new_nodes,
         )
@@ -235,6 +236,27 @@ class TestInlineMarkdown(unittest.TestCase):
             ],
             new_nodes,
         )
+
+    def test_text_to_textnodes(self):
+        nodes = text_to_textnodes(
+            "This is **text** with an *italic* word and a `code block` and an ![image](https://i.imgur.com/zjjcJKZ.png) and a [link](https://besstimett.com)"
+        )
+        self.assertListEqual(
+            [
+                TextNode("This is ", "text"),
+                TextNode("text", "bold"),
+                TextNode(" with an ", "text"),
+                TextNode("italic", "italic"),
+                TextNode(" word and a ", "text"),
+                TextNode("code block", "code"),
+                TextNode(" and an ", "text"),
+                TextNode("image", "image", "https://i.imgur.com/zjjcJKZ.png"),
+                TextNode(" and a ", "text"),
+                TextNode("link", "link", "https://besstimett.com"),
+            ],
+            nodes,
+        )
+        
 
 if __name__ == "__main__":
     unittest.main()

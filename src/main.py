@@ -2,29 +2,29 @@ from textnode import TextNode, text_node_to_html_node
 from htmlnode import HTMLNode
 from leafnode import LeafNode
 from parentnode import ParentNode
-from inline_markdown import split_nodes_delimiter, split_nodes_image, split_nodes_link
+from inline_markdown import split_nodes_delimiter, split_nodes_image, split_nodes_link, text_to_textnodes
 
 def main():
-  node = TextNode(
-      "This is text with a link ![to besstime](https://www.besstimett.com) and ![to instagram](https://www.instagram.com/besstimett)",
-      "text",
-  )
-  node2 = TextNode(
-      "This is text with a link  and ",
-      "text",
-  )
-  new_nodes = split_nodes_image([node, node2])
+  text = "This is **bold text** with an *italic* word and a `code block` and an ![obi wan image](https://i.imgur.com/fJRm4Vk.jpeg) and a [link](https://besstimett.com)"
+  nodes = text_to_textnodes(text)
 
-  print(new_nodes)
-
+  for node in nodes:
+    print(node)
+          
+          
 # [
-#     TextNode("This is text with a link ", TextType.TEXT),
-#     TextNode("to besstime", TextType.LINK, "https://www.besstimett.com"),
-#     TextNode(" and ", TextType.TEXT),
-#     TextNode(
-#         "to instagram", TextType.LINK, "https://www.instagram.com/besstimett"
-#     ),
-# ]
+#     TextNode("This is ", TextType.TEXT),
+#     TextNode("text", TextType.BOLD),
+#     TextNode(" with an ", TextType.TEXT),
+#     TextNode("italic", TextType.ITALIC),
+#     TextNode(" word and a ", TextType.TEXT),
+#     TextNode("code block", TextType.CODE),
+#     TextNode(" and an ", TextType.TEXT),
+#     TextNode("obi wan image", TextType.IMAGE, "https://i.imgur.com/fJRm4Vk.jpeg"),
+#     TextNode(" and a ", TextType.TEXT),
+#     TextNode("link", TextType.LINK, "https://boot.dev"),
+# ])
+
 
 if __name__ == '__main__':
   main()

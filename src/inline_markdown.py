@@ -3,6 +3,17 @@ import re
 from textnode import TextNode
 
 
+def text_to_textnodes(text):
+    final_nodes = [TextNode(text,"text")]
+
+    final_nodes = split_nodes_delimiter(final_nodes,"**") # get all bold nodes
+    final_nodes = split_nodes_delimiter(final_nodes,"*") # get all italic nodes
+    final_nodes = split_nodes_delimiter(final_nodes,"`") # get all code nodes
+    final_nodes = split_nodes_image(final_nodes) # get all image nodes
+    final_nodes = split_nodes_link(final_nodes) # get all link nodes
+
+    return final_nodes
+
 def split_nodes_delimiter(old_nodes : list, delimiter : str):
     new_nodes = []
     type = ""
@@ -18,6 +29,7 @@ def split_nodes_delimiter(old_nodes : list, delimiter : str):
     for old_node in old_nodes:
         if old_node.text_type != "text": # if the node type is not text then it should not need to be converted
             new_nodes.append(old_node)
+            continue
         elif old_node.text.count(delimiter) % 2 != 0: # Check for unclosed delimiters
             raise ValueError("Invalid markdown, formatted section not closed")
         else: 
@@ -31,10 +43,13 @@ def split_nodes_delimiter(old_nodes : list, delimiter : str):
     return new_nodes 
 
 def split_nodes_image(old_nodes):
-    result = []
+    new_nodes = []
 
-    for node in old_nodes:
-        text = node.text
+    for old_node in old_nodes:
+        if old_node.text_type != "text": # if the node type is not text then it should not need to be converted
+            new_nodes.append(old_node)
+            continue
+        text = old_node.text
         images = extract_markdown_images(text)
         parts = []
         last_index = 0
@@ -57,15 +72,18 @@ def split_nodes_image(old_nodes):
         if last_index < len(text):
             parts.append(TextNode(text[last_index:], "text"))
 
-        result.extend(parts)
+        new_nodes.extend(parts)
 
-    return result
+    return new_nodes
 
 def split_nodes_link(old_nodes):
-    result = []
+    new_nodes = []
 
-    for node in old_nodes:
-        text = node.text
+    for old_node in old_nodes:
+        if old_node.text_type != "text": # if the node type is not text then it should not need to be converted
+            new_nodes.append(old_node)
+            continue
+        text = old_node.text
         links = extract_markdown_links(text)
         parts = []
         last_index = 0
@@ -88,9 +106,9 @@ def split_nodes_link(old_nodes):
         if last_index < len(text):
             parts.append(TextNode(text[last_index:], "text"))
 
-        result.extend(parts)
+        new_nodes.extend(parts)
 
-    return result
+    return new_nodes
 
 def extract_markdown_images(text):
     # Regular expression to match the markdown image syntax
