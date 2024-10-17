@@ -3,28 +3,19 @@ from htmlnode import HTMLNode
 from leafnode import LeafNode
 from parentnode import ParentNode
 from inline_markdown import split_nodes_delimiter, split_nodes_image, split_nodes_link, text_to_textnodes
+from block_markdown import markdown_to_blocks
 
 def main():
-  text = "This is **bold text** with an *italic* word and a `code block` and an ![obi wan image](https://i.imgur.com/fJRm4Vk.jpeg) and a [link](https://besstimett.com)"
-  nodes = text_to_textnodes(text)
+  markdown = """
+    # This is a heading
 
-  for node in nodes:
-    print(node)
-          
-          
-# [
-#     TextNode("This is ", TextType.TEXT),
-#     TextNode("text", TextType.BOLD),
-#     TextNode(" with an ", TextType.TEXT),
-#     TextNode("italic", TextType.ITALIC),
-#     TextNode(" word and a ", TextType.TEXT),
-#     TextNode("code block", TextType.CODE),
-#     TextNode(" and an ", TextType.TEXT),
-#     TextNode("obi wan image", TextType.IMAGE, "https://i.imgur.com/fJRm4Vk.jpeg"),
-#     TextNode(" and a ", TextType.TEXT),
-#     TextNode("link", TextType.LINK, "https://boot.dev"),
-# ])
+    This is a paragraph of text. It has some **bold** and *italic* words inside of it.
 
+    * This is the first list item in a list block
+    * This is a list item
+    * This is another list item
+  """
+  print(markdown_to_blocks(markdown))
 
 if __name__ == '__main__':
   main()
