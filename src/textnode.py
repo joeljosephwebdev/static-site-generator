@@ -41,9 +41,9 @@ def text_node_to_html_node(text_node):
     case "text":
       return LeafNode(None, text_node.text, None)
     case "bold":
-      return LeafNode("b", text_node.text, None)
+      return LeafNode("strong", text_node.text, None)
     case "italic":
-      return LeafNode("i", text_node.text, None)
+      return LeafNode("em", text_node.text, None)
     case "code":
       return LeafNode("code", text_node.text, None)
     case "link":

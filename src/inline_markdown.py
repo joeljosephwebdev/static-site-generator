@@ -7,7 +7,9 @@ def text_to_textnodes(text):
     final_nodes = [TextNode(text,"text")]
 
     final_nodes = split_nodes_delimiter(final_nodes,"**") # get all bold nodes
+    final_nodes = split_nodes_delimiter(final_nodes,"__") # get all bold nodes
     final_nodes = split_nodes_delimiter(final_nodes,"*") # get all italic nodes
+    final_nodes = split_nodes_delimiter(final_nodes,"_") # get all italic nodes
     final_nodes = split_nodes_delimiter(final_nodes,"`") # get all code nodes
     final_nodes = split_nodes_image(final_nodes) # get all image nodes
     final_nodes = split_nodes_link(final_nodes) # get all link nodes
@@ -21,9 +23,9 @@ def split_nodes_delimiter(old_nodes : list, delimiter : str):
     match delimiter:
         case "`":
             type = "code"
-        case "*":
+        case "*" | "_":
             type = "italic"
-        case "**":
+        case "**" | "__":
             type = "bold"
 
     for old_node in old_nodes:
@@ -36,7 +38,7 @@ def split_nodes_delimiter(old_nodes : list, delimiter : str):
             parts = [
                 TextNode(part, type if i % 2 == 1 else "text")  # add a TextNode to the list with the text and text_type for non-empty parts
                 for i, part in enumerate(old_node.text.split(delimiter))
-                if part.strip() or len(part) > 0  # Check if the part is non-empty or has leading/trailing spaces
+                if part.strip()  # Check if the part is non-empty or has leading/trailing spaces
             ]
             new_nodes.extend(parts)
     
