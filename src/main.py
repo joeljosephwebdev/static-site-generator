@@ -1,22 +1,23 @@
 import time
+import os
 
 from logger import logging
 
-from textnode import TextNode, text_node_to_html_node
-from htmlnode import HTMLNode
-from leafnode import LeafNode
-from parentnode import ParentNode
-from inline_markdown import split_nodes_delimiter, split_nodes_image, split_nodes_link, text_to_textnodes
-from block_markdown import markdown_to_blocks, block_to_block_type, markdown_to_html_node
 from copystatic import copy_static
-from constants import UNICODE_CHARACTERS
+from constants import UNICODE_CHARACTERS,PATHS
+from generate_page import generate_page
 
 
 def main():
   logging.info(f"------- Static site generator initialized -------")
   start = time.time()
   copy_static()
+
+  content_path = PATHS["CONTENT"]
+  for file in os.listdir(content_path):
+    generate_page(os.path.join(content_path, file), PATHS["TEMPLATE"], PATHS["PUBLIC"])
   end = time.time()
+
   logging.info(f"Process time {end - start:.2f}")
   logging.info(f"------- Site generation compelete {UNICODE_CHARACTERS["CHECK_MARK"]} -------\n")
 

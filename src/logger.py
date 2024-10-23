@@ -1,6 +1,6 @@
 import logging
 
-def setup_logging(log_file='app.log'):
+def setup_logging(log_file='static_site.log'):
     """Set up logging configuration."""
     logger = logging.getLogger()
     logger.setLevel(logging.DEBUG)

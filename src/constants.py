@@ -4,7 +4,9 @@ PATHS = {
   "ROOT" : os.getcwd(),
   "IMAGES" : "static/images",
   "STATIC" : "static/",
-  "PUBLIC" : "public"
+  "PUBLIC" : "public",
+  "CONTENT" : "src/content",
+  "TEMPLATE" : "template.html"
 }
 
 UNICODE_CHARACTERS = {
