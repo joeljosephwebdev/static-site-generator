@@ -221,10 +221,8 @@ this is paragraph text
 ###### Emphasis
 
 *This text will be italic*  
-_This will also be italic_
 
 **This text will be bold**  
-__This will also be bold__
 
 You **can** combine them
 
@@ -257,7 +255,7 @@ with lines
       html = node.to_html()
       self.assertEqual(
           html,
-          """<div><h1>Markdown syntax guide</h1><h2>Headers</h2><h6>Emphasis</h6><p><em>This text will be italic</em><em>This will also be italic</em></p><p><strong>This text will be bold</strong><strong>This will also be bold</strong></p><p>You <strong>can</strong> combine them</p><h2>Lists</h2><h3>Unordered</h3><ul><li>Item 1</li><li>Item 2</li><li>Item 2a</li><li>Item 2b</li></ul><h3>Ordered</h3><ol><li>Item 1</li><li>Item 2</li><li>Item 3</li></ol><blockquote>here is a block of quotes with multiple lines</blockquote><pre><code>code
+          """<div><h1>Markdown syntax guide</h1><h2>Headers</h2><h6>Emphasis</h6><p><em>This text will be italic</em></p><p><strong>This text will be bold</strong></p><p>You <strong>can</strong> combine them</p><h2>Lists</h2><h3>Unordered</h3><ul><li>Item 1</li><li>Item 2</li><li>Item 2a</li><li>Item 2b</li></ul><h3>Ordered</h3><ol><li>Item 1</li><li>Item 2</li><li>Item 3</li></ol><blockquote>here is a block of quotes with multiple lines</blockquote><pre><code>code
 with lines
 </code></pre></div>""",
       )

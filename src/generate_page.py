@@ -4,6 +4,27 @@ from logger import logging
 from block_markdown import markdown_to_html_node
 from constants import UNICODE_CHARACTERS
 
+
+def generate_pages_recursive(src_path_content, template_path, dest_dir_path):
+  contents = os.listdir(src_path_content)
+
+  if not os.path.exists(dest_dir_path):
+    logging.info(f"Creating directory {dest_dir_path} {UNICODE_CHARACTERS["SMALL_CHECK_MARK"]}")
+    os.mkdir(dest_dir_path)
+
+  for file in contents:
+    file_path = os.path.join(src_path_content,file)
+
+    if os.path.isfile(file_path):
+      try:
+        generate_page(file_path, template_path, dest_dir_path) 
+        logging.info(f"{os.path.join(dest_dir_path, file[:-3]+".html")} created successfully {UNICODE_CHARACTERS["CHECK_MARK"]}") 
+      except Exception as e:
+        logging.error(f"Error generating {file_path} - {e}")
+        raise Exception(e)
+    else:
+      generate_pages_recursive(file_path, template_path, os.path.join(dest_dir_path, file))
+
 def generate_page(src_path : str, template_path : str, dst_path : str):
   logging.info(f"Generating page from '{src_path}' to '{dst_path}' using '{template_path}'")
 

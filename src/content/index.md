@@ -2,7 +2,7 @@
 
 ## Links
 
-Go back to the besstime [main page](https://besstimett.com)
+Take a look at our [first blog post](first-post)
 
 ## Headers
 
@@ -16,11 +16,7 @@ Go back to the besstime [main page](https://besstimett.com)
 
 *This text will be italic*  
 
-_This will also be italic_
-
 **This text will be bold**  
-
-__This will also be bold__
 
 ## Lists
 

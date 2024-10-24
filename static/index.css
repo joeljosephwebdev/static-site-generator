@@ -20,7 +20,7 @@ h3,
 h4,
 h5,
 h6 {
-  color: #EE2749;
+  color: #343434;
   margin-top: 24px;
   margin-bottom: 16px;
 }
@@ -76,7 +76,7 @@ pre {
 }
 
 blockquote {
-  background-color: #EE2749;
+  background-color: #343434;
   border-left: 4px solid #818589;
   padding-left: 2em;
   margin-left: 0;

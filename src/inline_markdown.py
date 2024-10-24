@@ -2,17 +2,16 @@ import re
 
 from textnode import TextNode
 
-
 def text_to_textnodes(text):
     final_nodes = [TextNode(text,"text")]
 
-    final_nodes = split_nodes_delimiter(final_nodes,"**") # get all bold nodes
-    final_nodes = split_nodes_delimiter(final_nodes,"__") # get all bold nodes
-    final_nodes = split_nodes_delimiter(final_nodes,"*") # get all italic nodes
-    final_nodes = split_nodes_delimiter(final_nodes,"_") # get all italic nodes
-    final_nodes = split_nodes_delimiter(final_nodes,"`") # get all code nodes
     final_nodes = split_nodes_image(final_nodes) # get all image nodes
     final_nodes = split_nodes_link(final_nodes) # get all link nodes
+    final_nodes = split_nodes_delimiter(final_nodes,"**") # get all bold nodes
+    final_nodes = split_nodes_delimiter(final_nodes,"*") # get all italic nodes
+    final_nodes = split_nodes_delimiter(final_nodes,"`") # get all code nodes
+    # final_nodes = split_nodes_delimiter(final_nodes,"__") # get all bold nodes
+    # final_nodes = split_nodes_delimiter(final_nodes,"_") # get all italic nodes
 
     return final_nodes
 
