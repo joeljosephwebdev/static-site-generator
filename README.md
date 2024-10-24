@@ -1,11 +1,17 @@
-# static-site-generator 📚🤖
+# static-site-generator 🌐🤖
 
 ## Authors 🙋‍♂️
 
 - [Joel Joseph](https://www.github.com/joeljosephwebdev)
 
+## Description
+
+This is a static site generator written in python. It creates html pages from markdown files.
+
 ## Getting Started 💫
 
+Store all physical asster in the *static* folder. 
+Add all markdown files to the *content* folder. Pages can be separated with sub-folders.
 
 ### Prerequisites 🚀
 
@@ -15,6 +21,66 @@ The only Prerequisites is to have python3 installed. I am specifically running P
    ```sh
     python3 --version  
     Python 3.12.6
+
+## Usage
+
+Run the test.sh shell script from the root folder. Make sure all tests pass.
+
+* Running tests
+  ```sh
+    ./test.sh
+    ..............................................................
+    ----------------------------------------------------------------------
+    Ran 62 tests in 0.003s
+
+    OK
+
+
+Run python3 main.py src folder to generate all web pages.
+
+* Run main.py
+  ```sh
+    python3 src/main.py
+    2024-10-23 23:26:49,192 - INFO - ------- Static site generator initialized -------
+    2024-10-23 23:26:49,193 - INFO - Deleted file 'public/index.html' ✓
+    2024-10-23 23:26:49,193 - INFO - Deleted file 'public/.DS_Store' ✓
+    2024-10-23 23:26:49,194 - INFO - Deleted 'public/images' directory contents ✓
+    2024-10-23 23:26:49,194 - INFO - Deleted file 'public/index.css' ✓
+    2024-10-23 23:26:49,194 - INFO - Deleted file 'public/first-post/index.html' ✓
+    2024-10-23 23:26:49,194 - INFO - Deleted 'public/first-post' directory contents ✓
+    2024-10-23 23:26:49,194 - INFO - Deleted 'public' directory contents ✅
+    2024-10-23 23:26:49,194 - INFO - All Paths verified ✅
+    2024-10-23 23:26:49,195 - INFO - Copied 'static/.DS_Store' to 'public' ✓
+    2024-10-23 23:26:49,195 - INFO - Copied 'static/images' to 'public' ✓
+    2024-10-23 23:26:49,196 - INFO - Copied 'static/index.css' to 'public' ✓
+    2024-10-23 23:26:49,196 - INFO - Copied 'static/' to 'public' ✅
+    2024-10-23 23:26:49,196 - INFO - Generating page from 'src/content/index.md' to 'public' using 'template.html'
+    2024-10-23 23:26:49,196 - INFO - Reading markdown from 'src/content/index.md' ✓
+    2024-10-23 23:26:49,196 - INFO - Converting markdown to html ✓
+    2024-10-23 23:26:49,198 - INFO - Reading template html from 'template.html' ✓
+    2024-10-23 23:26:49,198 - INFO - Adding content to html template. ✓
+    2024-10-23 23:26:49,198 - INFO - Writing html to 'public/index.html' ✓
+    2024-10-23 23:26:49,198 - INFO - public/index.html created successfully ✅
+    2024-10-23 23:26:49,198 - INFO - Creating directory public/first-post ✓
+    2024-10-23 23:26:49,199 - INFO - Generating page from 'src/content/first-post/index.md' to 'public/first-post' using 'template.html'
+    2024-10-23 23:26:49,199 - INFO - Reading markdown from 'src/content/first-post/index.md' ✓
+    2024-10-23 23:26:49,199 - INFO - Converting markdown to html ✓
+    2024-10-23 23:26:49,201 - INFO - Reading template html from 'template.html' ✓
+    2024-10-23 23:26:49,203 - INFO - Adding content to html template. ✓
+    2024-10-23 23:26:49,204 - INFO - Writing html to 'public/first-post/index.html' ✓
+    2024-10-23 23:26:49,204 - INFO - public/first-post/index.html created successfully ✅
+    2024-10-23 23:26:49,204 - INFO - ------- Site generation completed ✅ -------
+    2024-10-23 23:26:49,205 - INFO - Process time 0.01s
+
+You can run the main.sh shell script to also start a server to view all the pages.
+
+* Running the main shell script
+    ```sh
+      ./main.sh
+
+      Serving HTTP on :: port 8888 (http://[::]:8888/) ...
+
+All logged messages are stored to *static_site.log* in the root folder.
 
 ## Cheat Sheet
 
