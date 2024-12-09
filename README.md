@@ -10,7 +10,7 @@ This is a static site generator written in python. It creates html pages from ma
 
 ## Getting Started 💫
 
-Store all physical asster in the *static* folder. 
+Store all physical assets in the *static* folder. 
 Add all markdown files to the *content* folder. Pages can be separated with sub-folders.
 
 ### Prerequisites 🚀
